@@ -1,1 +1,1 @@
-# onix-systems_internship
+# Entry assignment to onix react internship
