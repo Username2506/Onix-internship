@@ -2,12 +2,17 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const mainTitle = "Входное задание в интернатуру",
+        author = "Никита Ламекин",
+        gitRef = "https://github.com/Username2506",
+        designRef = "https://nodejs.org/uk/docs/",
+        onixRef = "https://onix.kr.ua/";
   return (
     <div>
         <header>
             <h1>
                 <strong>
-                    Входное задание в интернатуру
+                    {mainTitle}
                 </strong>
             </h1>
             <nav className = "anchors">
@@ -95,22 +100,22 @@ function App() {
         </div>
         <footer>
             <span className = "author">
-                &copy; Никита Ламекин
+                &copy; {author}
             </span>
             <div>
                 <ul className = "reference">
                     <li>
-                        <a href = "https://github.com/Username2506" target = "_blank">
+                        <a href = {gitRef} target = "_blank">
                             GitHub
                         </a>
                     </li>
                     <li>
-                        <a href = "https://nodejs.org/uk/docs/" target = "_blank">
+                        <a href = {designRef} target = "_blank">
                             Original design
                         </a>
                     </li>
                     <li>
-                        <a href = "https://onix.kr.ua/" target = "_blank">
+                        <a href = {onixRef} target = "_blank">
                             Onix
                         </a>
                     </li>
