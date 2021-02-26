@@ -1,5 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
+import Biography from "./components/Biography"
 
 function App() {
   const mainTitle = "Входное задание в интернатуру",
@@ -91,12 +91,13 @@ function App() {
             </h2>
             <ol>
                 <li>
-                    Установить git, node, npm. Создать аккаунт на <a href = "https://github.com/" target = "_blank">https://github.com/</a> и публичный репозиторий для проекта. Клонировать из репозитория проект, сделать любые изменения в нем сделать коммит и запушить изменения
+                    Установить git, node, npm. Создать аккаунт на <a href = "https://github.com/" target = "_blank" rel = "noreferrer">https://github.com/</a> и публичный репозиторий для проекта. Клонировать из репозитория проект, сделать любые изменения в нем сделать коммит и запушить изменения
                 </li>
                 <li>
                     Cоздать простой шаблон страницы для дальнейшей работы. Страница должна содержать хедер, футер, блок с коротким описанием проекта и элементы из раздела “Обсуждаемый материал этого урока”(хотя бы по одному примеру). На странице должны быть: имя и фамилия автора, ссылка на github аккаунт, ссылка на оригинал дизайна. Страница должна проходить валидацию на w3c.
                 </li>
             </ol>
+            <Biography />
         </div>
         <footer>
             <span className = "author">
@@ -105,17 +106,17 @@ function App() {
             <div>
                 <ul className = "reference">
                     <li>
-                        <a href = {gitRef} target = "_blank">
+                        <a href = {gitRef} target = "_blank" rel = "noreferrer">
                             GitHub
                         </a>
                     </li>
                     <li>
-                        <a href = {designRef} target = "_blank">
+                        <a href = {designRef} target = "_blank" rel = "noreferrer">
                             Original design
                         </a>
                     </li>
                     <li>
-                        <a href = {onixRef} target = "_blank">
+                        <a href = {onixRef} target = "_blank" rel = "noreferrer">
                             Onix
                         </a>
                     </li>
