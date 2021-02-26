@@ -62,6 +62,35 @@ function Biography() {
         console.table(biography);
     }
 
+    function addElementToObject() {
+        biography.forEach( (object) => {
+            object.newElement = "some new data";
+        })
+
+        console.table(biography);
+    }
+
+    function deleteElementFromObject() {
+        biography.forEach( (object) => {
+            delete object.newElement;
+        })
+
+        console.table(biography);
+    }
+    
+    function getElementByKey() {
+        let key = prompt("Enter key to find element in object");
+        biography.forEach( (object) => {
+            console.log( key + ": " + object[key] );
+        })
+    }
+
+    function usingSpreadOperator() {
+        let newRecord = {...biography[0]};
+
+        console.log(newRecord);
+    }
+
     return (
         <div className = "biography">
             <table>
@@ -85,10 +114,22 @@ function Biography() {
                 sort array with custom bubble sort
             </button>
             <button onClick = {addElement}>
-                add new element
+                add new element to array
             </button>
             <button onClick = {removeLastElement}>
-                remove last element
+                remove last element from array
+            </button>
+            <button onClick = {addElementToObject}>
+                add new element to objects in array
+            </button>
+            <button onClick = {deleteElementFromObject}>
+                delete new element from objects in array
+            </button>
+            <button onClick = {getElementByKey}>
+                get element from object by key
+            </button>
+            <button onClick = {usingSpreadOperator}>
+                create copy of first element in array using spread operator
             </button>
         </div>
     )
