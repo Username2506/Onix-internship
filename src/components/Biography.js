@@ -25,14 +25,14 @@ const biography = [
 ];
 
 function Biography() {
-    function standartSort () {
-        console.table( biography.sort( (a, b) => a.date.year - b.date.year ) );
+    function standartSort (array) {
+        return [...array].sort( (a, b) => a.date.year - b.date.year );
     }
 
-    function myBubbleSort () {
-        const sortedArray = {...biography};
-        for (let i = 0; i < biography.length - 1; i++) {
-            for (let j = 0; j < biography.length - 1 - i; j++) {
+    function myBubbleSort (array) {
+        const sortedArray = [...biography];
+        for (let i = 0; i < sortedArray.length - 1; i++) {
+            for (let j = 0; j < sortedArray.length - 1 - i; j++) {
                 if (sortedArray[j].date.year > sortedArray[j + 1].date.year) {
                     let temp = sortedArray[j + 1];
                     sortedArray[j + 1] = sortedArray[j];
@@ -41,11 +41,12 @@ function Biography() {
             }
         }
 
-        console.table(sortedArray);
+        return(sortedArray);
     }
 
-    function addElement () {
-        biography.push({
+    function addElement (array) {
+        const newArray = [...array];
+        newArray.push({
             'date': {
                 'year': 2021,
                 'month': "february"
@@ -53,13 +54,14 @@ function Biography() {
             'description': "random description"
         });
 
-        console.table(biography);
+        return newArray;
     }
 
-    function removeLastElement() {
-        biography.pop();
-
-        console.table(biography);
+    function removeLastElement(array) {
+        const newArray = [...array];
+        newArray.pop();
+        
+        return newArray;
     }
 
     function addElementToObject() {
@@ -107,16 +109,28 @@ function Biography() {
                     ])}
                 </tbody>
             </table>
-            <button onClick = {standartSort}>
+            <button onClick = {() => { 
+                    console.table( standartSort(biography) );
+                    console.table(biography);
+                }}>
                 sort array with standart sort function
-                </button>
-            <button onClick = {myBubbleSort}>
+            </button>
+            <button onClick = {() => { 
+                    console.table( myBubbleSort(biography) );
+                    console.table(biography);
+                }}>
                 sort array with custom bubble sort
             </button>
-            <button onClick = {addElement}>
+            <button onClick = {() => { 
+                    console.table( addElement(biography) );
+                    console.table(biography);
+                }}>
                 add new element to array
             </button>
-            <button onClick = {removeLastElement}>
+            <button onClick = {() => { 
+                    console.table( removeLastElement(biography) );
+                    console.table(biography);
+                }}>
                 remove last element from array
             </button>
             <button onClick = {addElementToObject}>
