@@ -30,7 +30,7 @@ function Biography() {
     }
 
     function myBubbleSort (array) {
-        const sortedArray = [...biography];
+        const sortedArray = [...array];
         for (let i = 0; i < sortedArray.length - 1; i++) {
             for (let j = 0; j < sortedArray.length - 1 - i; j++) {
                 if (sortedArray[j].date.year > sortedArray[j + 1].date.year) {
@@ -41,7 +41,7 @@ function Biography() {
             }
         }
 
-        return(sortedArray);
+        return sortedArray;
     }
 
     function addElement (array) {
