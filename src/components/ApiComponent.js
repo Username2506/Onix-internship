@@ -28,6 +28,7 @@ class ApiComponent extends React.Component {
     }
 
     render() {
+        const {city, temp_c, wind, condition} = this.state;
         return (
             <div className = "weather">
                 <table>
@@ -39,10 +40,10 @@ class ApiComponent extends React.Component {
                             <th>Condition</th>
                         </tr>
                         <tr>
-                            <td>{this.state.city}</td>
-                            <td>{this.state.temp_c}</td>
-                            <td>{this.state.wind}</td>
-                            <td>{this.state.condition}</td>
+                            <td>{city}</td>
+                            <td>{temp_c}</td>
+                            <td>{wind}</td>
+                            <td>{condition}</td>
                         </tr>
                     </tbody>
                 </table>
