@@ -1,5 +1,6 @@
 import './App.css';
 import Biography from "./components/Biography"
+import ApiComponent from "./components/ApiComponent"
 
 function App() {
   const mainTitle = "Входное задание в интернатуру",
@@ -98,6 +99,7 @@ function App() {
                 </li>
             </ol>
             <Biography />
+            <ApiComponent />
         </div>
         <footer>
             <span className = "author">
