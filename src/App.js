@@ -1,6 +1,7 @@
 import './App.css';
 import Biography from "./components/Biography"
 import ApiComponent from "./components/ApiComponent"
+import Image from "./components/Image"
 
 function App() {
   const mainTitle = "Входное задание в интернатуру",
@@ -100,6 +101,7 @@ function App() {
             </ol>
             <Biography />
             <ApiComponent />
+            <Image />
         </div>
         <footer>
             <span className = "author">
