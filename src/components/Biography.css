@@ -1,13 +1,33 @@
-table {
-    margin: 0, auto, 0, auto;
+.biography, .biographyTable {
+    width: 100%;
 }
 
-tr, th, td {
-    border: 1px solid black;
-    padding: 10px;
+ul {
+    list-style: none;
 }
 
 button {
     margin: 10px;
     padding: 10px;
+}
+
+.active {
+    color: green;
+}
+
+.date {
+    width: 30%;
+    float: left;
+}
+
+.desc {
+    width: 69%;
+    float: right;
+}
+
+.date, .desc { 
+    border: 1px solid black;
+    padding: 0 auto;
+    margin: 0;
+    text-align: center;
 }
