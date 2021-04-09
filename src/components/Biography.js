@@ -1,7 +1,7 @@
 import "./Biography.css";
 import React from 'react';
 
-const biography = [
+let biography = [
     {
         date: {
             'year': 2020,
@@ -101,7 +101,7 @@ class Biography extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            stateBiography: {biography},
+            stateBiography: [...biography],
             highlighting: false,
             currentItem: undefined
         }
@@ -111,7 +111,6 @@ class Biography extends React.Component {
         document.addEventListener('keypress', e => {
             if (e.code === 'KeyR' && e.shiftKey === true) {
                 this.setState ({
-                    ...this.state,
                     highlighting: !this.state.highlighting
                 })
             }
@@ -119,21 +118,58 @@ class Biography extends React.Component {
     }
 
     handleClick = (e, item) => {
-        biography.forEach(element => {
+        biography.forEach( element => {
             element.active = false;
         })
         item.active = true;
         this.setState({
-            stateBiography: {...biography}
-        })
+            stateBiography: [...biography]
+        });
     }
     
-    handleDrag = (e) => {
-        
+    handleDrag = (e, item) => {
+        e.preventDefault();
+        this.setState({
+            currentItem: item,
+        });
+    }
+
+    handleDragOver = (e, item) => {
+        e.preventDefault();
+    }
+
+    handleDrop = (e, item) => {
+        const {currentItem} = this.state;
+        if (item === currentItem) {
+            return;
+        }
+        const table = [];
+        let prevOrNext = true;
+        biography.forEach(element => {
+            if (element !== currentItem) {
+                if (element === item) {
+                    if (prevOrNext) {
+                        table.push(currentItem);
+                        table.push(item)
+                    } else {
+                        table.push(item)
+                        table.push(currentItem);
+                    }
+                } else {
+                    table.push(element);
+                }
+            } else {
+                prevOrNext = false;
+            }
+        });
+        biography = [...table];
+        this.setState({
+            stateBiography: [...biography]
+        });
     }
 
     render() {
-        const {highlighting} = this.state;
+        const {highlighting, currentItem} = this.state;
         const biographyList = biography.map(element => {
             let classes = 'row';
 
@@ -144,8 +180,11 @@ class Biography extends React.Component {
             return (
                 <li className = {classes}
                     key = {element.date.month + "-" + element.date.year}
+                    draggable
                     onClick = {e => this.handleClick(e, element)}
-                    onDrag = {e => this.handleDrag(e, element)}>
+                    onDrag = {e => this.handleDrag(e, element)}
+                    onDragOver = {e => this.handleDragOver(e, element)}
+                    onDrop = {e => this.handleDrop(e, element)}>
                         <span className = 'date'>{element.date.month + ", " + element.date.year}</span>
                         <span className = 'desc'>{element.description}</span>
                 </li>
