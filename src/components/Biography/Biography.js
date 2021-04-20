@@ -1,4 +1,4 @@
-import "./Biography.css";
+import "./css/Biography.css";
 import React from 'react';
 
 let biography = [
@@ -48,17 +48,17 @@ function myBubbleSort (array) {
 }
 
 function addElement (array) {
-    const newArray = [...array];
-    newArray.push({
-        date: {
-            year: 2021,
-            month: "february"
-        },
-        description: "random description",
-        active: false
-    });
-
-    return newArray;
+    return [
+        ...array,
+        {
+            date: {
+                year: 2021,
+                month: "february"
+            },
+            description: "random description",
+            active: false
+        }
+    ];
 }
 
 function removeLastElement(array) {
@@ -171,11 +171,7 @@ class Biography extends React.Component {
     render() {
         const {highlighting, currentItem} = this.state;
         const biographyList = biography.map(element => {
-            let classes = 'row';
-
-            if (element.active && highlighting) {
-                classes = classes + ' active';
-            }
+            const classes = element.active && highlighting ? 'row active' : 'row';
 
             return (
                 <li className = {classes}

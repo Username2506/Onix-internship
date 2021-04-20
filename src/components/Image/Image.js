@@ -1,5 +1,5 @@
-import "./Image.css"
-import img from '../assets/image.png';
+import "./css/Image.css"
+import img from '../../assets/image.png';
 
 function Image() {
     return (

@@ -85,15 +85,10 @@ header, footer {
   background: #333;
 }
 
-.description,
 .workspace {
   box-sizing: border-box;
   margin: 20px auto;
   max-width: 60%;
-}
-
-.description {
-  font-size: 100%;
 }
 
 footer {
