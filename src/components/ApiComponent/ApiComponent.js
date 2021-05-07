@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withWeather from '../hoc/withWeather';
+import './css/ApiComponent.css';
+import withWeather from '../../hoc/withWeather';
 
 const ApiComponent = (props) => {
   const { 

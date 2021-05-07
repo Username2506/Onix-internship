@@ -1,0 +1,12 @@
+.weather {
+  margin-top: 20px;
+}
+
+table, tbody {
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid black;
+  text-align: center;
+}

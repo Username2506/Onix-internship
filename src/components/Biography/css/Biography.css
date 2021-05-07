@@ -1,3 +1,7 @@
+.biography {
+  margin-top: 20px;
+}
+
 .biography, .biographyTable {
     width: 100%;
 }

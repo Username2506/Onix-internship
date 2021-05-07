@@ -1,152 +1,171 @@
 import './css/Biography.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-let biography = [
-  {
-    date: {
-      year: 2020,
-      month: 'may'
-    },
-    description: 'some information about 2020 year',
-    active: false
-  },
-  {
-    date: {
-      year: 2010,
-      month: 'october'
-    },
-    description: 'some information about 2010 year',
-    active: false
-  },
-  {
-    date: {
-      year: 2000,
-      month: 'june'
-    },
-    description: 'some information about 2000 year',
-    active: false
-  },
-];
-
-function standartSort(array) {
-  return [...array].sort((a, b) => a.date.year - b.date.year);
-}
-
-function myBubbleSort(array) {
-  const sortedArray = [...array];
-  for (let i = 0; i < sortedArray.length - 1; i += 1) {
-    for (let j = 0; j < sortedArray.length - 1 - i; j += 1) {
-      if (sortedArray[j].date.year > sortedArray[j + 1].date.year) {
-        const temp = sortedArray[j + 1];
-        sortedArray[j + 1] = sortedArray[j];
-        sortedArray[j] = temp;
-      }
-    }
-  }
-
-  return sortedArray;
-}
-
-function addElement(array) {
-  return [
-    ...array,
-    {
-      date: {
-        year: 2021,
-        month: 'february'
+const Biography = () => {
+  const [state, setState] = useState({
+    biography: [
+      {
+        date: {
+          year: 2020,
+          month: 'may'
+        },
+        description: 'some information about 2020 year',
+        active: false
       },
-      description: 'random description',
-      active: false
-    }
-  ];
-}
-
-function removeLastElement(array) {
-  const newArray = [...array];
-  newArray.pop();
-
-  return newArray;
-}
-
-function addElementToObject() {
-  const modifiedBio = biography.map((object) => {
-    return {
-      ...object,
-      newElement: 'some new data'
-    };
+      {
+        date: {
+          year: 2010,
+          month: 'october'
+        },
+        description: 'some information about 2010 year',
+        active: false
+      },
+      {
+        date: {
+          year: 2000,
+          month: 'june'
+        },
+        description: 'some information about 2000 year',
+        active: false
+      },
+    ],
+    highlighting: false,
+    currentItem: undefined
   });
 
-  biography = modifiedBio;
+  useEffect(
+    () => {
+      document.addEventListener('keypress', (e) => {
+        if (e.code === 'KeyR' && e.shiftKey === true) {
+          setState((prevState) => ({
+            ...prevState,
+            highlighting: !prevState.highlighting
+          }));
+        }
+      });
+    },
+    []
+  );
 
-  console.table(biography);
-}
+  const standartSort = (array) => {
+    const sortedArray = [...array].sort((a, b) => a.date.year - b.date.year);
 
-function deleteElementFromObject() {
-  biography.forEach((object) => {
-    const obj = object;
-    delete obj.newElement;
-  });
-
-  console.table(biography);
-}
-
-function getElementByKey() {
-  const key = prompt('Enter key to find element in object');
-  biography.forEach((object) => {
-    console.log(`${key}: ${object[key]}`);
-  });
-}
-
-function usingSpreadOperator() {
-  const newRecord = { ...biography[0] };
-
-  console.log(newRecord);
-}
-
-class Biography extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stateBiography: [...biography],
-      highlighting: false,
-      currentItem: undefined
-    };
-  }
-
-  componentDidMount() {
-    document.addEventListener('keypress', (e) => {
-      const { highling } = this.state;
-      if (e.code === 'KeyR' && e.shiftKey === true) {
-        this.setState({
-          highlighting: highling
-        });
+    setState((prevState) => ({
+      ...prevState,
+      biography: sortedArray
+    }));
+  };
+  
+  const myBubbleSort = (array) => {
+    const sortedArray = [...array];
+    for (let i = 0; i < sortedArray.length - 1; i += 1) {
+      for (let j = 0; j < sortedArray.length - 1 - i; j += 1) {
+        if (sortedArray[j].date.year > sortedArray[j + 1].date.year) {
+          const temp = sortedArray[j + 1];
+          sortedArray[j + 1] = sortedArray[j];
+          sortedArray[j] = temp;
+        }
       }
-    });
-  }
+    }
 
-  handleClick = (e, item) => {
-    biography.forEach((element) => {
+    setState((prevState) => ({
+      ...prevState,
+      biography: sortedArray
+    }));
+  };
+  
+  const addElement = (array) => {
+    const newArr = [
+      ...array,
+      {
+        date: {
+          year: 2021,
+          month: 'february'
+        },
+        description: 'random description',
+        active: false
+      }
+    ];
+
+    setState((prevState) => ({
+      ...prevState,
+      biography: newArr
+    }));
+  };
+  
+  const removeLastElement = (array) => {
+    const newArray = [...array];
+    newArray.pop();
+  
+    setState((prevState) => ({
+      ...prevState,
+      biography: newArray
+    }));
+  };
+  
+  const addElementToObject = (biography) => {
+    const modifiedBio = biography.map((object) => {
+      return {
+        ...object,
+        newElement: 'some new data'
+      };
+    });
+  
+    console.table(modifiedBio);
+  };
+  
+  const deleteElementFromObject = (biography) => {
+    const newBio = [...biography];
+    newBio.forEach((object) => {
+      const obj = object;
+      delete obj.newElement;
+    });
+  
+    console.table(newBio);
+  };
+  
+  const getElementByKey = (biography) => {
+    const key = prompt('Enter key to find element in object');
+    biography.forEach((object) => {
+      console.log(`${key}: ${object[key]}`);
+    });
+  };
+  
+  const usingSpreadOperator = (biography) => {
+    const newRecord = { ...biography[0] };
+  
+    console.log(newRecord);
+  };
+
+  const handleClick = (e, item) => {
+    const { biography } = state;
+    const newBio = biography.map((element) => {
       const el = element;
       el.active = false;
+      return el;
     });
     const clickedItem = item;
     clickedItem.active = true;
-    this.setState((prevState) => ({ ...prevState }));
-  }
+    setState((prevState) => ({ 
+      ...prevState,
+      biography: newBio
+    }));
+  };
 
-  handleDrag = (e, item) => {
+  const handleDrag = (e, item) => {
     e.preventDefault();
-    this.setState({
-      currentItem: item,
-    });
-  }
+    setState((prevState) => ({
+      ...prevState,
+      currentItem: item
+    }));
+  };
 
-  handleDragOver = (e) => {
+  const handleDragOver = (e) => {
     e.preventDefault();
-  }
+  };
 
-  handleDrop = (e, item) => {
-    const { currentItem } = this.state;
+  const handleDrop = (e, item) => {
+    const { biography, currentItem } = state;
     if (item === currentItem) {
       return;
     }
@@ -169,107 +188,94 @@ class Biography extends React.Component {
         prevOrNext = false;
       }
     });
-    biography = [...table];
-    this.setState({
-      stateBiography: [...biography]
-    });
-  }
+    setState((prevState) => ({
+      ...prevState,
+      biography: table
+    }));
+  };
 
-  render() {
-    const { highlighting } = this.state;
-    const biographyList = biography.map((element) => {
-      const classes = element.active && highlighting ? 'row active' : 'row';
+  const { biography, highlighting } = state;
 
-      return (
-        <li 
-          className={classes}
-          role="presentation"
-          key={`${element.date.month}-${element.date.year}`}
-          draggable
-          onClick={(e) => this.handleClick(e, element)}
-          onKeyDown={(e) => this.handleClick(e, element)}
-          onDrag={(e) => this.handleDrag(e, element)}
-          onDragOver={(e) => this.handleDragOver(e)}
-          onDrop={(e) => this.handleDrop(e, element)}
-        >
-          <span className="date">{`${element.date.month}, ${element.date.year}`}</span>
-          <span className="desc">{element.description}</span>
-        </li>
-      );
-    });
+  const biographyList = biography.map((element) => {
+    const classes = element.active && highlighting ? 'row active' : 'row';
 
     return (
-      <div className="biography">
-        <ul className="biographyTable">
-          <li className="row">
-            <span className="date">Date</span>
-            <span className="desc">Description</span>
-          </li>
-          {biographyList}
-        </ul>
-        <button 
-          type="button"
-          onClick={() => {
-            console.table(standartSort(biography));
-            console.table(biography);
-          }}
-        >
-          sort array with standart sort function
-        </button>
-        <button
-          type="button" 
-          onClick={() => {
-            console.table(myBubbleSort(biography));
-            console.table(biography);
-          }}
-        >
-          sort array with custom bubble sort
-        </button>
-        <button
-          type="button" 
-          onClick={() => {
-            console.table(addElement(biography));
-            console.table(biography);
-          }}
-        >
-          add new element to array
-        </button>
-        <button 
-          type="button"
-          onClick={() => {
-            console.table(removeLastElement(biography));
-            console.table(biography);
-          }}
-        >
-          remove last element from array
-        </button>
-        <button 
-          type="button"
-          onClick={addElementToObject}
-        >
-          add new element to objects in array
-        </button>
-        <button 
-          type="button"
-          onClick={deleteElementFromObject}
-        >
-          delete new element from objects in array
-        </button>
-        <button 
-          type="button"
-          onClick={getElementByKey}
-        >
-          get element from object by key
-        </button>
-        <button 
-          type="button"
-          onClick={usingSpreadOperator}
-        >
-          create copy of first element in array using spread operator
-        </button>
-      </div>
+      <li 
+        className={classes}
+        role="presentation"
+        key={`${element.date.month}-${element.date.year}`}
+        draggable
+        onClick={(e) => handleClick(e, element)}
+        onKeyDown={(e) => handleClick(e, element)}
+        onDrag={(e) => handleDrag(e, element)}
+        onDragOver={(e) => handleDragOver(e)}
+        onDrop={(e) => handleDrop(e, element)}
+      >
+        <span className="date">{`${element.date.month}, ${element.date.year}`}</span>
+        <span className="desc">{element.description}</span>
+      </li>
     );
-  }
-}
+  });
+
+  return (
+    <div className="biography">
+      <ul className="biographyTable">
+        <li className="row">
+          <span className="date">Date</span>
+          <span className="desc">Description</span>
+        </li>
+        {biographyList}
+      </ul>
+      <button 
+        type="button"
+        onClick={() => standartSort(biography)}
+      >
+        sort array with standart sort function
+      </button>
+      <button
+        type="button" 
+        onClick={() => myBubbleSort(biography)}
+      >
+        sort array with custom bubble sort
+      </button>
+      <button
+        type="button" 
+        onClick={() => addElement(biography)}
+      >
+        add new element to array
+      </button>
+      <button 
+        type="button"
+        onClick={() => removeLastElement(biography)}
+      >
+        remove last element from array
+      </button>
+      <button 
+        type="button"
+        onClick={() => addElementToObject(biography)}
+      >
+        add new element to objects in array
+      </button>
+      <button 
+        type="button"
+        onClick={() => deleteElementFromObject(biography)}
+      >
+        delete new element from objects in array
+      </button>
+      <button 
+        type="button"
+        onClick={() => getElementByKey(biography)}
+      >
+        get element from object by key
+      </button>
+      <button 
+        type="button"
+        onClick={() => usingSpreadOperator(biography)}
+      >
+        create copy of first element in array using spread operator
+      </button>
+    </div>
+  );
+};
 
 export default Biography;
