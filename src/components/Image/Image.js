@@ -2,7 +2,7 @@ import './css/Image.css';
 import React from 'react';
 import img from '../../assets/image.png';
 
-function Image() {
+const Image = () => {
   return (
     <div>
       <img 
@@ -13,6 +13,6 @@ function Image() {
       />
     </div>
   );
-}
+};
 
 export default Image;

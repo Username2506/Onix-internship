@@ -1,4 +1,4 @@
-html, body, span, applet, object, iframe,
+body, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, ins, kbd, q, s, samp,
@@ -44,41 +44,15 @@ table {
 
 body {
   font: 400 20px/1.5 "Source Sans Pro","Open Sans",Roboto,"San Francisco",Helvetica,Arial,sans-serif;
+}
+
+.body.light {
   color: #333;
 }
 
-header {
-  box-sizing: border-box;
-  text-align: center;
-  margin: 0 auto;
-  margin-bottom: 30px;
-  width: 100%;
-  min-height: 100px;
-}
-
-ul {
-  display: block;
-  list-style-type: disc;
-  margin-top: 0;
-}
-
-.anchors li {
-  display: inline-block;
-  padding-bottom: 12px;
-  color: #ccc;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-.anchors li a {
-  color: #ccc;
-}
-
-.anchors li+li::before {
-  content: "|";
-  padding: 0 .6em 0 .4em;
-  color: #999;
-  font-size: 150%;
+.body.dark {
+  background-color: #333;
+  color: white;
 }
 
 header, footer {
@@ -87,23 +61,8 @@ header, footer {
 
 .workspace {
   box-sizing: border-box;
-  margin: 20px auto;
+  margin: 20px auto 0 auto;
   max-width: 60%;
-}
-
-footer {
-  position: absolute;
-  box-sizing: border-box;
-  margin-bottom: 0;
-  margin-top: 50px;
-  padding: 10px 20% 50px 20%;
-  width: 100%;
-  font-size: 80%;
-  color: #ccc;
-}
-
-.author {
-  float: right;
 }
 
 strong {
@@ -126,12 +85,4 @@ h2 {
 
 ol {
   margin-left: 60px;
-}
-
-.reference a{
-  color: #ccc;
-}
-
-p {
-  margin: 10px 0;
 }

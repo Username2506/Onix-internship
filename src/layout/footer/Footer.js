@@ -1,6 +1,7 @@
 import React from 'react';
+import './css/Footer.css';
 
-function Footer() {
+const Footer = () => {
   const author = 'Никита Ламекин';
   const gitRef = 'https://github.com/Username2506';
   const designRef = 'https://nodejs.org/uk/docs/';
@@ -32,6 +33,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
