@@ -13,7 +13,7 @@ import i18n from './i18n/index';
 
 const App = () => {
   const [themeState, setThemeState] = useState({});
-  const [langState, setLangState] = useState('en');
+  const [langState, setLangState] = useState();
   const { t } = useTranslation();
 
   useEffect(
@@ -29,6 +29,8 @@ const App = () => {
         theme: 'light',
         toggleTheme
       });
+
+      i18n.changeLanguage();
     },
     []
   );

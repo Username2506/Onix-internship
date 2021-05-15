@@ -1,16 +1,20 @@
 import React from 'react';
 import './css/LanguageSelector.css';
+import { useTranslation } from 'react-i18next';
 import LangContext from '../../context/LangContext';
 
-const LanguageSelector = () => (
-  <LangContext.Consumer>
-    {({ setLangState }) => (
-      <select className="languageSelector" onChange={(event) => setLangState(event.target.value)}>
-        <option value="en">EN</option>
-        <option value="ru">RU</option>
-      </select>
-    )}
-  </LangContext.Consumer>
-);
+const LanguageSelector = () => {
+  const { i18n } = useTranslation();
+  return (
+    <LangContext.Consumer>
+      {({ setLangState }) => (
+        <select className="languageSelect" value={i18n.language} onChange={(event) => setLangState(event.target.value)}>
+          <option value="en">EN</option>
+          <option value="ru">RU</option>
+        </select>
+      )}
+    </LangContext.Consumer>
+  );
+};
 
 export default LanguageSelector;

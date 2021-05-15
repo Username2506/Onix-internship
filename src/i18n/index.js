@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import detector from 'i18next-browser-languagedetector';
 import en from './en';
 import ru from './ru';
 
@@ -10,13 +10,11 @@ const resources = {
 };
 
 i18n
+  .use(detector)
   .use(initReactI18next)
-  .use(LanguageDetector)
   .init({
-    detection: {
-      order: ['localStorage', 'cookie']
-    },
     resources,
+    fallbackLng: 'en',
     supportedLngs: ['en', 'ru']
   });
 
