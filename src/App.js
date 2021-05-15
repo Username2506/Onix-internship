@@ -1,26 +1,31 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from './layout/header/Header';
 import Footer from './layout/footer/Footer';
 import EntryAssignment from './components/EntryAssignment/EntryAssignment';
 import Biography from './components/Biography/Biography';
 import ApiComponent from './components/ApiComponent/ApiComponent';
 import Image from './components/Image/Image';
-import { ThemeContext } from './context/ThemeContext';
+import ThemeContext from './context/ThemeContext';
+import LangContext from './context/LangContext';
+import i18n from './i18n/index';
 
 const App = () => {
-  const [state, setState] = useState({});
+  const [themeState, setThemeState] = useState({});
+  const [langState, setLangState] = useState('en');
+  const { t } = useTranslation();
 
   useEffect(
     () => {
       const toggleTheme = () => {
-        setState(({ theme }) => ({
+        setThemeState(({ theme }) => ({
           theme: theme === 'light' ? 'dark' : 'light',
           toggleTheme
         }));
       };
 
-      setState({
+      setThemeState({
         theme: 'light',
         toggleTheme
       });
@@ -28,20 +33,26 @@ const App = () => {
     []
   );
 
+  useEffect(
+    () => i18n.changeLanguage(langState),
+    [langState]
+  );
+
   return (
-    <ThemeContext.Provider value={state}>
-      <div className={`body ${state.theme}`}>
-        <Header />
-        <div className="workspace">
-          <EntryAssignment />
-          <Biography />
-          <ApiComponent />
-          <Image />
+    <ThemeContext.Provider value={themeState}>
+      <LangContext.Provider value={{ t, setLangState }}>
+        <div className={`body ${themeState.theme}`}>
+          <Header />
+          <div className="workspace">
+            <EntryAssignment />
+            <Biography />
+            <ApiComponent />
+            <Image />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </LangContext.Provider>
     </ThemeContext.Provider>
-    
   );
 };
 

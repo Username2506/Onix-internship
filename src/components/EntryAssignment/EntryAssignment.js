@@ -1,78 +1,78 @@
 import React from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
+import ThemeContext from '../../context/ThemeContext';
+import LangContext from '../../context/LangContext';
 
-const EntryAssignment = () => {
-  return (
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <div className={theme}>
-          <h2 id="theme">
-            Тема
-          </h2>
-          <p>
-            Git, node, npm, основы html css
-          </p>
-          <h2 id="goal">
-            Цель
-          </h2>
-          <p>
-            Изучить базовые функции git, node, npm. Подготовить к дальнейшей работе систему. 
-            Определить уровень умения верстки
-          </p>
-          <h2 id="material-to-discuss">
-            Обсуждаемый материал
-          </h2>
-          <ol>
-            <li>
-              Что такое система контроля версий и зачем она нужна
-            </li>
-            <li>
-              Git
-              <ol type="a">
+const EntryAssignment = () => (
+  <ThemeContext.Consumer>
+    {({ theme }) => (
+      <LangContext.Consumer>
+        {({ t }) => {
+          const navigations = t('navigations', { returnObjects: true });
+          const entry = t('entryAssignment', { returnObjects: true });
+          return (
+            <div className={theme}>
+              <h2 id="theme">
+                {navigations.theme}
+              </h2>
+              <p>
+                {entry.theme}
+              </p>
+              <h2 id="goal">
+                {navigations.goal}
+              </h2>
+              <p>
+                {entry.goal}
+              </p>
+              <h2 id="material-to-discuss">
+                {navigations.discuss}
+              </h2>
+              <ol>
                 <li>
-                  Checkout, add, commit, pull, push
+                  {entry.discussLi1}
                 </li>
                 <li>
-                  Основы ветвления и слияния
+                  {entry.discussLi2Text}
+                  <ol type="a">
+                    <li>
+                      {entry.discussLi2A}
+                    </li>
+                    <li>
+                      {entry.discussLi2B}
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  {entry.discussLi3}
+                </li>
+                <li>
+                  {entry.discussLi4}
+                </li>
+                <li>
+                  {entry.discussLi5}
+                </li>
+                <li>
+                  {entry.discussLi6}
                 </li>
               </ol>
-            </li>
-            <li>
-              Что такое nodejs, зачем он нужен и как устанавливать
-            </li>
-            <li>
-              Что такое менеджер пакетов, установка npm
-            </li>
-            <li>
-              Html: теги, структура html страницы, блочные и строчные элементы, списки, таблицы, 
-              атрибуты, текст, якоря, ссылки, w3c валидация
-            </li>
-            <li>
-              Css: стили, классы, идентификаторы, селекторы, псевдоклассы, псевдоэлементы
-            </li>
-          </ol>
-          <h2 id="task">
-            Задание
-          </h2>
-          <ol>
-            <li>
-              Установить git, node, npm. Создать аккаунт на  
-              <a href="https://github.com/" target="_blank" rel="noreferrer"> https://github.com/ </a>
-              и публичный репозиторий для проекта. Клонировать из репозитория проект, сделать любые изменения
-              в нем сделать коммит и запушить изменения
-            </li>
-            <li>
-              Cоздать простой шаблон страницы для дальнейшей работы. 
-              Страница должна содержать хедер, футер, блок с коротким описанием проекта и элементы из раздела
-              “Обсуждаемый материал этого урока”(хотя бы по одному примеру). На странице должны быть: имя
-              и фамилия автора, ссылка на github аккаунт, ссылка на оригинал дизайна. Страница должна
-              проходить валидацию на w3c.
-            </li>
-          </ol>
-        </div>
-      )}
-    </ThemeContext.Consumer> 
-  );
-};
+              <h2 id="task">
+                {navigations.task}
+              </h2>
+              <ol>
+                <li>
+                  {entry.task1Part1} 
+                  <a href="https://github.com/" target="_blank" rel="noreferrer"> https://github.com/ </a>
+                  {entry.task1Part2} 
+                </li>
+                <li>
+                  {entry.task2} 
+                </li>
+              </ol>
+            </div>
+          );
+        }}
+      </LangContext.Consumer>
+    )}
+  </ThemeContext.Consumer> 
+);
 
 export default EntryAssignment;

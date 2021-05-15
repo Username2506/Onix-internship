@@ -8,6 +8,11 @@ header {
   box-shadow: 0 1px 10px rgb(27, 27, 27); 
 }
 
+.mainTitle {
+  padding-left: 80px;
+  display: inline-block;
+}
+
 ul {
   display: block;
   list-style-type: disc;
