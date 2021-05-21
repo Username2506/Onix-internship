@@ -94,8 +94,7 @@ const Biography = () => {
   };
   
   const removeLastElement = (array) => {
-    const newArray = [...array];
-    newArray.pop();
+    const newArray = [...array].pop();
   
     setState((prevState) => ({
       ...prevState,
@@ -115,7 +114,7 @@ const Biography = () => {
   const deleteElementFromObject = (biography) => {
     const newBio = [...biography];
     newBio.forEach((object) => {
-      const obj = object;
+      const obj = { ...object };
       delete obj.newElement;
     });
   
@@ -137,13 +136,11 @@ const Biography = () => {
 
   const handleClick = (e, item) => {
     const { biography } = state;
-    const newBio = biography.map((element) => {
-      const el = element;
-      el.active = false;
-      return el;
-    });
-    const clickedItem = item;
-    clickedItem.active = true;
+    const newBio = biography.map((element) => ({
+      ...element,
+      active: element === item
+    }));
+    
     setState((prevState) => ({ 
       ...prevState,
       biography: newBio
