@@ -48,11 +48,9 @@ const Biography = () => {
   );
 
   const standartSort = (array) => {
-    const sortedArray = [...array].sort((a, b) => a.date.year - b.date.year);
-
     setState((prevState) => ({
       ...prevState,
-      biography: sortedArray
+      biography: [...array].sort((a, b) => a.date.year - b.date.year)
     }));
   };
   
@@ -75,30 +73,26 @@ const Biography = () => {
   };
   
   const addElement = (array) => {
-    const newArr = [
-      ...array,
-      {
-        date: {
-          year: 2021,
-          month: 'february'
-        },
-        description: 'random description',
-        active: false
-      }
-    ];
-
     setState((prevState) => ({
       ...prevState,
-      biography: newArr
+      biography: [
+        ...array,
+        {
+          date: {
+            year: 2021,
+            month: 'february'
+          },
+          description: 'random description',
+          active: false
+        }
+      ]
     }));
   };
   
   const removeLastElement = (array) => {
-    const newArray = [...array].pop();
-  
     setState((prevState) => ({
       ...prevState,
-      biography: newArray
+      biography: [...array].pop()
     }));
   };
   
@@ -191,26 +185,22 @@ const Biography = () => {
 
   const { biography, highlighting } = state;
 
-  const biographyList = biography.map((element) => {
-    const classes = element.active && highlighting ? 'row active' : 'row';
-
-    return (
-      <li 
-        className={classes}
-        role="presentation"
-        key={`${element.date.month}-${element.date.year}`}
-        draggable
-        onClick={(e) => handleClick(e, element)}
-        onKeyDown={(e) => handleClick(e, element)}
-        onDrag={(e) => handleDrag(e, element)}
-        onDragOver={(e) => handleDragOver(e)}
-        onDrop={(e) => handleDrop(e, element)}
-      >
-        <span className="date">{`${element.date.month}, ${element.date.year}`}</span>
-        <span className="desc">{element.description}</span>
-      </li>
-    );
-  });
+  const biographyList = biography.map((element) => (
+    <li 
+      className={element.active && highlighting ? 'row active' : 'row'}
+      role="presentation"
+      key={`${element.date.month}-${element.date.year}`}
+      draggable
+      onClick={(e) => handleClick(e, element)}
+      onKeyDown={(e) => handleClick(e, element)}
+      onDrag={(e) => handleDrag(e, element)}
+      onDragOver={(e) => handleDragOver(e)}
+      onDrop={(e) => handleDrop(e, element)}
+    >
+      <span className="date">{`${element.date.month}, ${element.date.year}`}</span>
+      <span className="desc">{element.description}</span>
+    </li>
+  ));
 
   return (
     <div className="biography">
