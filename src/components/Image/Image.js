@@ -2,17 +2,15 @@ import './css/Image.css';
 import React from 'react';
 import img from '../../assets/image.png';
 
-const Image = () => {
-  return (
-    <div>
-      <img 
-        src={img}
-        alt="alt"
-        onLoad={() => alert('Изображение успешно загружено')}
-        onError={() => alert('Ошибка при загрузке изображения')}
-      />
-    </div>
-  );
-};
+const Image = () => (
+  <div>
+    <img 
+      src={img}
+      alt="alt"
+      onLoad={() => alert('Изображение успешно загружено')}
+      onError={() => alert('Ошибка при загрузке изображения')}
+    />
+  </div>
+);
 
 export default Image;

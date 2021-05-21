@@ -104,12 +104,10 @@ const Biography = () => {
   };
   
   const addElementToObject = (biography) => {
-    const modifiedBio = biography.map((object) => {
-      return {
-        ...object,
-        newElement: 'some new data'
-      };
-    });
+    const modifiedBio = biography.map((object) => ({
+      ...object,
+      newElement: 'some new data'
+    }));
   
     console.table(modifiedBio);
   };
