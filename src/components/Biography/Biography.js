@@ -2,45 +2,40 @@ import './css/Biography.css';
 import React, { useEffect, useState } from 'react';
 
 const Biography = () => {
-  const [state, setState] = useState({
-    biography: [
-      {
-        date: {
-          year: 2020,
-          month: 'may'
-        },
-        description: 'some information about 2020 year',
-        active: false
+  const [biography, setBiography] = useState([
+    {
+      date: {
+        year: 2020,
+        month: 'may'
       },
-      {
-        date: {
-          year: 2010,
-          month: 'october'
-        },
-        description: 'some information about 2010 year',
-        active: false
+      description: 'some information about 2020 year',
+      active: false
+    },
+    {
+      date: {
+        year: 2010,
+        month: 'october'
       },
-      {
-        date: {
-          year: 2000,
-          month: 'june'
-        },
-        description: 'some information about 2000 year',
-        active: false
+      description: 'some information about 2010 year',
+      active: false
+    },
+    {
+      date: {
+        year: 2000,
+        month: 'june'
       },
-    ],
-    highlighting: false,
-    currentItem: undefined
-  });
+      description: 'some information about 2000 year',
+      active: false
+    }
+  ]);
+  const [highlighting, setHighlighting] = useState(false);
+  const [currentItem, setCurrentItem] = useState(undefined);
 
   useEffect(
     () => {
       document.addEventListener('keypress', (e) => {
         if (e.code === 'KeyR' && e.shiftKey === true) {
-          setState((prevState) => ({
-            ...prevState,
-            highlighting: !prevState.highlighting
-          }));
+          setHighlighting((prev) => (!prev));
         }
       });
     },
@@ -48,10 +43,7 @@ const Biography = () => {
   );
 
   const standartSort = (array) => {
-    setState((prevState) => ({
-      ...prevState,
-      biography: [...array].sort((a, b) => a.date.year - b.date.year)
-    }));
+    setBiography([...array].sort((a, b) => a.date.year - b.date.year));
   };
   
   const myBubbleSort = (array) => {
@@ -66,38 +58,29 @@ const Biography = () => {
       }
     }
 
-    setState((prevState) => ({
-      ...prevState,
-      biography: sortedArray
-    }));
+    setBiography(sortedArray);
   };
   
-  const addElement = (array) => {
-    setState((prevState) => ({
-      ...prevState,
-      biography: [
-        ...array,
-        {
-          date: {
-            year: 2021,
-            month: 'february'
-          },
-          description: 'random description',
-          active: false
-        }
-      ]
-    }));
+  const addElement = () => {
+    setBiography((prevBio) => ([
+      ...prevBio,
+      {
+        date: {
+          year: 2021,
+          month: 'february'
+        },
+        description: 'random description',
+        active: false
+      }
+    ]));
   };
   
-  const removeLastElement = (array) => {
-    setState((prevState) => ({
-      ...prevState,
-      biography: [...array].pop()
-    }));
+  const removeLastElement = () => {
+    setBiography((prevBio) => ([...prevBio].pop()));
   };
   
-  const addElementToObject = (biography) => {
-    const modifiedBio = biography.map((object) => ({
+  const addElementToObject = (array) => {
+    const modifiedBio = array.map((object) => ({
       ...object,
       newElement: 'some new data'
     }));
@@ -105,8 +88,8 @@ const Biography = () => {
     console.table(modifiedBio);
   };
   
-  const deleteElementFromObject = (biography) => {
-    const newBio = [...biography];
+  const deleteElementFromObject = (array) => {
+    const newBio = [...array];
     newBio.forEach((object) => {
       const obj = { ...object };
       delete obj.newElement;
@@ -115,38 +98,31 @@ const Biography = () => {
     console.table(newBio);
   };
   
-  const getElementByKey = (biography) => {
+  const getElementByKey = (array) => {
     const key = prompt('Enter key to find element in object');
-    biography.forEach((object) => {
+    array.forEach((object) => {
       console.log(`${key}: ${object[key]}`);
     });
   };
   
-  const usingSpreadOperator = (biography) => {
-    const newRecord = { ...biography[0] };
+  const usingSpreadOperator = (array) => {
+    const newRecord = { ...array[0] };
   
     console.log(newRecord);
   };
 
   const handleClick = (e, item) => {
-    const { biography } = state;
     const newBio = biography.map((element) => ({
       ...element,
       active: element === item
     }));
     
-    setState((prevState) => ({ 
-      ...prevState,
-      biography: newBio
-    }));
+    setBiography(newBio);
   };
 
   const handleDrag = (e, item) => {
     e.preventDefault();
-    setState((prevState) => ({
-      ...prevState,
-      currentItem: item
-    }));
+    setCurrentItem(item);
   };
 
   const handleDragOver = (e) => {
@@ -154,10 +130,10 @@ const Biography = () => {
   };
 
   const handleDrop = (e, item) => {
-    const { biography, currentItem } = state;
     if (item === currentItem) {
       return;
     }
+
     const table = [];
     let prevOrNext = true;
     biography.forEach((element) => {
@@ -177,13 +153,9 @@ const Biography = () => {
         prevOrNext = false;
       }
     });
-    setState((prevState) => ({
-      ...prevState,
-      biography: table
-    }));
-  };
 
-  const { biography, highlighting } = state;
+    setBiography(table);
+  };
 
   const biographyList = biography.map((element) => (
     <li 
@@ -225,13 +197,13 @@ const Biography = () => {
       </button>
       <button
         type="button" 
-        onClick={() => addElement(biography)}
+        onClick={() => addElement()}
       >
         add new element to array
       </button>
       <button 
         type="button"
-        onClick={() => removeLastElement(biography)}
+        onClick={() => removeLastElement()}
       >
         remove last element from array
       </button>
