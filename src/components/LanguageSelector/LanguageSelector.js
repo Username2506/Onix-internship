@@ -7,8 +7,8 @@ const LanguageSelector = () => {
   const { i18n } = useTranslation();
   return (
     <LangContext.Consumer>
-      {({ setLangState }) => (
-        <select className="languageSelect" value={i18n.language} onChange={(event) => setLangState(event.target.value)}>
+      {({ setLanguage }) => (
+        <select className="languageSelect" value={i18n.language} onChange={(event) => setLanguage(event.target.value)}>
           <option value="en">EN</option>
           <option value="ru">RU</option>
         </select>

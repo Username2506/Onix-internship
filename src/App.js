@@ -19,18 +19,24 @@ const App = () => {
   useEffect(
     () => {
       const toggleTheme = () => {
-        setThemeState(({ theme }) => ({
-          theme: theme === 'light' ? 'dark' : 'light',
-          toggleTheme
-        }));
+        setThemeState(({ theme }) => {
+          const newTheme = theme === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', newTheme);
+          return ({
+            theme: newTheme,
+            toggleTheme
+          });
+        });
       };
 
+      const storedTheme = localStorage.getItem('theme');
       setThemeState({
-        theme: 'light',
+        theme: storedTheme || 'light',
         toggleTheme
       });
 
-      i18n.changeLanguage();
+      const storedLang = localStorage.getItem('language');
+      i18n.changeLanguage(storedLang);
     },
     []
   );
@@ -40,9 +46,14 @@ const App = () => {
     [langState]
   );
 
+  const setLanguage = (lang) => {
+    localStorage.setItem('language', lang);
+    setLangState(lang);
+  };
+
   return (
     <ThemeContext.Provider value={themeState}>
-      <LangContext.Provider value={{ t, setLangState }}>
+      <LangContext.Provider value={{ t, setLanguage }}>
         <div className={`body ${themeState.theme}`}>
           <Header />
           <div className="workspace">
