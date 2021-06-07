@@ -1,33 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setWeather } from '../store/weather/actions';
+import { getWeather } from '../store/weather/actions';
 
 /* eslint-disable react/jsx-props-no-spreading */
 
 const withWeather = (WrappedComponent) => {
   const WithWeather = (props) => {
-    const { weather, setWeatherAction } = props;
-    const [loading, setLoading] = useState(true);
+    const { weather, loading, getWeatherAction } = props;
 
     useEffect(
       () => {
-        fetch(`http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=London&aqi=no`)
-          .then((response) => response.json())
-          .then((response) => {
-            setWeatherAction({
-              city: response.location.name,
-              tempC: response.current.temp_c,
-              wind: response.current.wind_kph,
-              condition: response.current.condition.text,
-            });
-            setLoading(false);
-          })
-          .catch(() => {
-            alert('Не удалось получить информацию о погоде');
-            setLoading(false);
-          });
+        getWeatherAction();
       }, 
       []
     );
@@ -55,7 +40,10 @@ const withWeather = (WrappedComponent) => {
       wind: PropTypes.number,
       condition: PropTypes.string
     }),
-    setWeatherAction: PropTypes.func
+    setWeatherAction: PropTypes.func,
+    loading: PropTypes.bool,
+    getWeatherAction: PropTypes.func,
+    setLoading: PropTypes.func
   };
 
   WithWeather.defaultProps = {
@@ -65,18 +53,22 @@ const withWeather = (WrappedComponent) => {
       wind: 0,
       condition: ''
     },
-    setWeatherAction: () => {}
+    setWeatherAction: () => {},
+    loading: false,
+    getWeatherAction: () => {},
+    setLoading: () => {}
   };
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
   WithWeather.displayName = `WithWeather(${displayName})`;
 
   const mapStateToProps = (rstate) => ({
-    weather: rstate.weather.weather
+    weather: rstate.weather.weather,
+    loading: rstate.weather.loading
   });
   
   const mapDispatchToProps = {
-    setWeatherAction: setWeather
+    getWeatherAction: getWeather,
   };
   
   return connect(mapStateToProps, mapDispatchToProps)(WithWeather);
