@@ -34,7 +34,7 @@ const Biography = () => {
   useEffect(
     () => {
       document.addEventListener('keypress', (e) => {
-        if (e.code === 'KeyR' && e.shiftKey === true) {
+        if (e.code === 'KeyR' && e.shiftKey) {
           setHighlighting((prev) => (!prev));
         }
       });
